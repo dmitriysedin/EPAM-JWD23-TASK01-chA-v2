@@ -45,20 +45,20 @@ public class Triangle {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Triangle)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Triangle triangle = (Triangle) o;
 
-        if (!apexA.equals(triangle.apexA)) return false;
-        if (!apexB.equals(triangle.apexB)) return false;
-        return apexC.equals(triangle.apexC);
+        if (apexA != null ? !apexA.equals(triangle.apexA) : triangle.apexA != null) return false;
+        if (apexB != null ? !apexB.equals(triangle.apexB) : triangle.apexB != null) return false;
+        return apexC != null ? apexC.equals(triangle.apexC) : triangle.apexC == null;
     }
 
     @Override
     public int hashCode() {
-        int result = apexA.hashCode();
-        result = 31 * result + apexB.hashCode();
-        result = 31 * result + apexC.hashCode();
+        int result = apexA != null ? apexA.hashCode() : 0;
+        result = 31 * result + (apexB != null ? apexB.hashCode() : 0);
+        result = 31 * result + (apexC != null ? apexC.hashCode() : 0);
         return result;
     }
 

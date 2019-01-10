@@ -35,12 +35,12 @@ public class Point2D {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Point2D)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        Point2D point = (Point2D) o;
+        Point2D point2D = (Point2D) o;
 
-        if (Double.compare(point.abscissa, abscissa) != 0) return false;
-        return Double.compare(point.ordinate, ordinate) == 0;
+        if (Double.compare(point2D.abscissa, abscissa) != 0) return false;
+        return Double.compare(point2D.ordinate, ordinate) == 0;
     }
 
     @Override

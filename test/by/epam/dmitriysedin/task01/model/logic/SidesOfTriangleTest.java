@@ -27,7 +27,7 @@ public class SidesOfTriangleTest {
 
     private static Triangle[] testTriangle;
 
-    private String fileName = "D:\\EPAM_JWD23\\files\\TestValues.txt";
+    private String fileName = "files\\TestValues.txt";
 
     @BeforeClass
     public void initTestTriangleArrayFromFile() {

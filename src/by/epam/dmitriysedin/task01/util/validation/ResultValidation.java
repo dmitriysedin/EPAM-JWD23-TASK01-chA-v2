@@ -39,7 +39,7 @@ public class ResultValidation {
             return false;
         }
 
-        return !((!apexA.equals(apexB) && (sideAC == Double.POSITIVE_INFINITY || sideAC == 0 || new Double(sideAC).isNaN())) ||
+        return !((!apexA.equals(apexC) && (sideAC == Double.POSITIVE_INFINITY || sideAC == 0 || new Double(sideAC).isNaN())) ||
                 (!apexB.equals(apexC) && (sideBC == Double.POSITIVE_INFINITY || sideBC == 0 || new Double(sideBC).isNaN())) ||
                 (!apexA.equals(apexB) && (sideAB == Double.POSITIVE_INFINITY || sideAB == 0 || new Double(sideAB).isNaN())));
     }
