@@ -14,9 +14,9 @@ import java.util.stream.Stream;
 /**
  * Created by Dmitriy Sedin on 05.12.2018.
  */
-public class ReadFromFile {
+public class ReaderFromFileImpl implements ReaderFromFile {
 
-    public static String[] readFromFile(String fileName) throws ReadFromFileException,
+    public String[] read(String fileName) throws ReadFromFileException,
             EmptyFileException, FileNotExistsException, TypeOfFileException{
 
         if(!new File(fileName).exists()){

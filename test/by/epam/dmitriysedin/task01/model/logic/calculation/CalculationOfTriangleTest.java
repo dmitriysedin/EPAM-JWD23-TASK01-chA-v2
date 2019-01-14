@@ -5,7 +5,6 @@ import by.epam.dmitriysedin.task01.model.entity.Point2D;
 import by.epam.dmitriysedin.task01.model.exception.DoubleOutOfBoundException;
 import by.epam.dmitriysedin.task01.model.exception.NotTriangleException;
 import by.epam.dmitriysedin.task01.model.exception.TriangleNullException;
-import by.epam.dmitriysedin.task01.model.logic.check.CheckOfTriangle;
 import org.testng.annotations.*;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -30,6 +29,8 @@ public class CalculationOfTriangleTest {
     private static Triangle[] testTriangle;
 
     private String fileName = "files\\TestValues.txt";
+
+    private CalculationOfTriangle calculationOfTriangle = new CalculationOfTriangle();
 
     @BeforeClass
     public void initTestTriangleArrayFromFile() {
@@ -111,54 +112,54 @@ public class CalculationOfTriangleTest {
 
     @Test(dataProvider = "perimeterOfTriangleData")
     public void testPerimeterOfTriangle(Double expected, Triangle triangle) throws Exception {
-        double actual = CalculationOfTriangle.perimeterOfTriangle(triangle);
+        double actual = calculationOfTriangle.calculatePerimeterOfTriangle(triangle);
         assertEquals(actual, expected, 0.000001);
     }
 
     @Test(dataProvider = "areaOfTriangleData")
     public void testAreaOfTriangle(Double expected, Triangle triangle) throws Exception {
-        double actual = CalculationOfTriangle.areaOfTriangle(triangle);
+        double actual = calculationOfTriangle.calculateAreaOfTriangle(triangle);
         assertEquals(actual, expected, 0.000001);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
-    public void testExceptionOfAreaOfTriangle() throws Exception {
+    public void testTriangleNullExceptionOfAreaOfTriangle() throws Exception {
         Triangle triangle = null;
-        CalculationOfTriangle.areaOfTriangle(triangle);
+        calculationOfTriangle.calculateAreaOfTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
-    public void testExceptionOfAreaOfTriangleSide() throws Exception {
+    public void testTriangleNullExceptionOfSideOfAreaOfTriangle() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(point2D, new Point2D(0, 1), new Point2D(1, 2));
-        CalculationOfTriangle.areaOfTriangle(triangle);
+        calculationOfTriangle.calculateAreaOfTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
-    public void testExceptionOfPerimeterOfTriangle() throws Exception {
+    public void testTriangleNullExceptionOfPerimeterOfTriangle() throws Exception {
         Triangle triangle = null;
-        CalculationOfTriangle.perimeterOfTriangle(triangle);
+        calculationOfTriangle.calculatePerimeterOfTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
-    public void testExceptionOfPerimeterOfTriangleSide() throws Exception {
+    public void testTriangleNullExceptionOfSideOfPerimeterOfTriangle() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(point2D, new Point2D(0, 1), new Point2D(1, 2));
-        CalculationOfTriangle.perimeterOfTriangle(triangle);
+        calculationOfTriangle.calculatePerimeterOfTriangle(triangle);
     }
 
     @Test(expectedExceptions = NotTriangleException.class)
     public void testIsTriangleExceptionOfPerimeterOfTriangle() throws Exception {
-        Triangle triangle = new Triangle(new Point2D(0,0), new Point2D(0, 0),
-                new Point2D(0, 0));
-        CalculationOfTriangle.perimeterOfTriangle(triangle);
+        Triangle triangle = new Triangle(new Point2D(1,0), new Point2D(2, 0),
+                new Point2D(3, 0));
+        calculationOfTriangle.calculatePerimeterOfTriangle(triangle);
     }
 
     @Test(expectedExceptions = NotTriangleException.class)
     public void testIsTriangleExceptionOfAreaOfTriangle() throws Exception {
-        Triangle triangle = new Triangle(new Point2D(0,0), new Point2D(0, 0),
-                new Point2D(0, 0));
-        CalculationOfTriangle.areaOfTriangle(triangle);
+        Triangle triangle = new Triangle(new Point2D(1,0), new Point2D(2, 0),
+                new Point2D(3, 0));
+        calculationOfTriangle.calculateAreaOfTriangle(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
@@ -169,7 +170,7 @@ public class CalculationOfTriangleTest {
         double ordinataB = Math.pow(1.26E308d, 2);
         Triangle triangle = new Triangle(new Point2D(abscissaA,ordinataA), new Point2D(abscissaB, ordinataB),
                 new Point2D(0, 1));
-        CalculationOfTriangle.perimeterOfTriangle(triangle);
+        calculationOfTriangle.calculatePerimeterOfTriangle(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
@@ -180,6 +181,6 @@ public class CalculationOfTriangleTest {
         double ordinataB = Math.pow(1.26E308d, 2);
         Triangle triangle = new Triangle(new Point2D(abscissaA,ordinataA), new Point2D(abscissaB, ordinataB),
                 new Point2D(0, 1));
-        CalculationOfTriangle.areaOfTriangle(triangle);
+        calculationOfTriangle.calculateAreaOfTriangle(triangle);
     }
 }

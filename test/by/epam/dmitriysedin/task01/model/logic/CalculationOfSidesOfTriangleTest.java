@@ -4,7 +4,6 @@ import by.epam.dmitriysedin.task01.model.entity.Point2D;
 import by.epam.dmitriysedin.task01.model.entity.Triangle;
 import by.epam.dmitriysedin.task01.model.exception.DoubleOutOfBoundException;
 import by.epam.dmitriysedin.task01.model.exception.TriangleNullException;
-import by.epam.dmitriysedin.task01.model.logic.check.CheckOfTriangle;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -21,13 +20,15 @@ import static org.testng.Assert.*;
 /**
  * Created by Dmitriy Sedin on 10.12.2018.
  */
-public class SidesOfTriangleTest {
+public class CalculationOfSidesOfTriangleTest {
 
     private static final String SPLIT_REGEX = "\\s+";
 
     private static Triangle[] testTriangle;
 
     private String fileName = "files\\TestValues.txt";
+
+    public CalculationOfSidesOfTriangle calculationOfSidesOfTriangle = new CalculationOfSidesOfTriangle();
 
     @BeforeClass
     public void initTestTriangleArrayFromFile() {
@@ -56,7 +57,7 @@ public class SidesOfTriangleTest {
     }
 
     @DataProvider
-    public Object[][] getSideABData (){
+    public Object[][] calculateSideABData(){
 
         Object[][] getSideABData = new Object[testTriangle.length][2];
 
@@ -73,7 +74,7 @@ public class SidesOfTriangleTest {
     }
 
     @DataProvider
-    public Object[][] getSideACData (){
+    public Object[][] calculateSideACData(){
 
         Object[][] getSideACData = new Object[testTriangle.length][2];
 
@@ -90,7 +91,7 @@ public class SidesOfTriangleTest {
     }
 
     @DataProvider
-    public Object[][] getSideBCData (){
+    public Object[][] calculateSideBCData(){
 
         Object[][] getSideBCData = new Object[testTriangle.length][2];
 
@@ -106,101 +107,99 @@ public class SidesOfTriangleTest {
         return getSideBCData;
     }
 
-    @Test(dataProvider = "getSideABData")
-    public void testGetSideAB(Double expected, Triangle triangle) throws Exception {
+    @Test(dataProvider = "calculateSideABData")
+    public void testCalculateSideAB(Double expected, Triangle triangle) throws Exception {
 
-        double actual = SidesOfTriangle.getSideAB(triangle);
-
-        assertEquals(actual, expected, 0.000001);
-    }
-
-    @Test(dataProvider = "getSideACData")
-    public void testGetSideAC(Double expected, Triangle triangle) throws Exception {
-
-        double actual = SidesOfTriangle.getSideAC(triangle);
+        double actual = calculationOfSidesOfTriangle.calculateSideAB(triangle);
 
         assertEquals(actual, expected, 0.000001);
     }
 
-    @Test(dataProvider = "getSideBCData")
-    public void testGetSideBC(Double expected, Triangle triangle) throws Exception {
+    @Test(dataProvider = "calculateSideACData")
+    public void testCalculateSideAC(Double expected, Triangle triangle) throws Exception {
 
-        double actual = SidesOfTriangle.getSideBC(triangle);
+        double actual = calculationOfSidesOfTriangle.calculateSideAC(triangle);
+
+        assertEquals(actual, expected, 0.000001);
+    }
+
+    @Test(dataProvider = "calculateSideBCData")
+    public void testCalculateSideBC(Double expected, Triangle triangle) throws Exception {
+
+        double actual = calculationOfSidesOfTriangle.calculateSideBC(triangle);
 
         assertEquals(actual, expected, 0.000001);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
-    public void testExceptionNullTriangleOfGetSideAB() throws Exception {
+    public void testExceptionNullTriangleOfCalculateSideAB() throws Exception {
         Triangle triangle = null;
-        SidesOfTriangle.getSideAB(triangle);
+        calculationOfSidesOfTriangle.calculateSideAB(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
-    public void testExceptionNullApexOfGetSideAB() throws Exception {
+    public void testExceptionNullApexOfCalculateSideAB() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(point2D, new Point2D(0, 1), new Point2D(1, 2));
-        SidesOfTriangle.getSideAB(triangle);
+        calculationOfSidesOfTriangle.calculateSideAB(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
-    public void testExceptionNullTriangleOfGetSideAC() throws Exception {
+    public void testExceptionNullTriangleOfCalculateSideAC() throws Exception {
         Triangle triangle = null;
-        SidesOfTriangle.getSideAC(triangle);
+        calculationOfSidesOfTriangle.calculateSideAC(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
-    public void testExceptionNullApexOfGetSideAC() throws Exception {
+    public void testExceptionNullApexOfCalculateSideAC() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(point2D, new Point2D(0, 1), new Point2D(1, 2));
-        SidesOfTriangle.getSideAC(triangle);
+        calculationOfSidesOfTriangle.calculateSideAC(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
-    public void testExceptionNullTriangleOfGetSideBC() throws Exception {
+    public void testExceptionNullTriangleOfCalculateSideBC() throws Exception {
         Triangle triangle = null;
-        SidesOfTriangle.getSideBC(triangle);
+        calculationOfSidesOfTriangle.calculateSideBC(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
-    public void testExceptionNullApexOfGetSideBC() throws Exception {
+    public void testExceptionNullApexOfCalculateSideBC() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(new Point2D(0, 1), new Point2D(1, 2), point2D);
-        SidesOfTriangle.getSideBC(triangle);
+        calculationOfSidesOfTriangle.calculateSideBC(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
-    public void testIsDoubleOutOfBoundExceptionOfGetSideAB() throws Exception {
+    public void testIsDoubleOutOfBoundExceptionOfCalculateSideAB() throws Exception {
         double abscissaA = Math.pow(1.23E308d, 2);
         double ordinataA = Math.pow(1.24E308d, 2);
         double abscissaB = Math.pow(1.25E308d, 2);
         double ordinataB = Math.pow(1.26E308d, 2);
         Triangle triangle = new Triangle(new Point2D(abscissaA,ordinataA), new Point2D(abscissaB, ordinataB),
                 new Point2D(0, 1));
-        SidesOfTriangle.getSideAB(triangle);
+        calculationOfSidesOfTriangle.calculateSideAB(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
-    public void testIsDoubleOutOfBoundExceptionOfGetSideAC() throws Exception {
+    public void testIsDoubleOutOfBoundExceptionOfCalculateSideAC() throws Exception {
         double abscissaA = Math.pow(1.23E308d, 2);
         double ordinataA = Math.pow(1.24E308d, 2);
         double abscissaC = Math.pow(1.25E308d, 2);
         double ordinataC = Math.pow(1.26E308d, 2);
         Triangle triangle = new Triangle(new Point2D(abscissaA,ordinataA), new Point2D(1, 2),
                 new Point2D(abscissaC, ordinataC));
-        SidesOfTriangle.getSideAC(triangle);
+        calculationOfSidesOfTriangle.calculateSideAC(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
-    public void testIsDoubleOutOfBoundExceptionOfGetSideBC() throws Exception {
+    public void testIsDoubleOutOfBoundExceptionOfCalculateSideBC() throws Exception {
         double abscissaB = Math.pow(1.23E308d, 2);
         double ordinataB = Math.pow(1.24E308d, 2);
         double abscissaC = Math.pow(1.25E308d, 2);
         double ordinataC = Math.pow(1.26E308d, 2);
         Triangle triangle = new Triangle(new Point2D(1, 2), new Point2D(abscissaB, ordinataB),
                 new Point2D(abscissaC, ordinataC));
-        System.out.println(SidesOfTriangle.getSideBC(triangle));
-        System.out.println();
-        SidesOfTriangle.getSideBC(triangle);
+        calculationOfSidesOfTriangle.calculateSideBC(triangle);
     }
 }

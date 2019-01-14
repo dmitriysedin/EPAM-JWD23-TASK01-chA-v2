@@ -5,7 +5,6 @@ import by.epam.dmitriysedin.task01.model.entity.Triangle;
 import by.epam.dmitriysedin.task01.model.exception.DoubleOutOfBoundException;
 import by.epam.dmitriysedin.task01.model.exception.NotTriangleException;
 import by.epam.dmitriysedin.task01.model.exception.TriangleNullException;
-import by.epam.dmitriysedin.task01.model.logic.SidesOfTriangle;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -29,6 +28,8 @@ public class CheckOfTriangleTest {
     private static Triangle[] testTriangle;
 
     private String fileName = "files\\TestValues.txt";
+
+    private CheckOfTriangle checkOfTriangle = new CheckOfTriangle();
 
     @BeforeClass
     public void initTestTriangleArrayFromFile() {
@@ -215,151 +216,151 @@ public class CheckOfTriangleTest {
 
     @Test(dataProvider = "isTriangleData")
     public void testIsTriangle(boolean expected, Triangle triangle) throws Exception {
-        boolean actual = CheckOfTriangle.isTriangle(triangle);
+        boolean actual = checkOfTriangle.isTriangle(triangle);
         assertEquals(actual, expected);
     }
 
     @Test(dataProvider = "isEquilateralTriangleData")
     public void testIsEquilateralTriangle(boolean expected, Triangle triangle) throws Exception {
-        boolean actual = CheckOfTriangle.isEquilateralTriangle(triangle);
+        boolean actual = checkOfTriangle.isEquilateralTriangle(triangle);
         assertEquals(actual, expected);
     }
 
     @Test(dataProvider = "isIsoscelesTriangleData")
     public void testIsIsoscelesTriangle(boolean expected, Triangle triangle) throws Exception {
-        boolean actual = CheckOfTriangle.isIsoscelesTriangle(triangle);
+        boolean actual = checkOfTriangle.isIsoscelesTriangle(triangle);
         assertEquals(actual, expected);
     }
 
     @Test(dataProvider = "isRightTriangleData")
     public void testisRightTriangle(boolean expected, Triangle triangle) throws Exception {
-        boolean actual = CheckOfTriangle.isRightTriangle(triangle);
+        boolean actual = checkOfTriangle.isRightTriangle(triangle);
         assertEquals(actual, expected);
     }
 
     @Test(dataProvider = "isAcuteTriangleData")
     public void testisAcuteTriangle(boolean expected, Triangle triangle) throws Exception {
-        boolean actual = CheckOfTriangle.isAcuteTriangle(triangle);
+        boolean actual = checkOfTriangle.isAcuteTriangle(triangle);
         assertEquals(actual, expected);
     }
 
     @Test(dataProvider = "isObtuseTriangleData")
     public void testisObtuseTriangle(boolean expected, Triangle triangle) throws Exception {
-        boolean actual = CheckOfTriangle.isObtuseTriangle(triangle);
+        boolean actual = checkOfTriangle.isObtuseTriangle(triangle);
         assertEquals(actual, expected);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testNullExceptionOfIsTriangle() throws Exception {
         Triangle triangle = null;
-        CheckOfTriangle.isTriangle(triangle);
+        checkOfTriangle.isTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testApexNullExceptionOfIsTriangle() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(point2D, new Point2D(0, 1), new Point2D(1, 2));
-        CheckOfTriangle.isTriangle(triangle);
+        checkOfTriangle.isTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testNullExceptionOfIsEquilateralTriangle() throws Exception {
         Triangle triangle = null;
-        CheckOfTriangle.isEquilateralTriangle(triangle);
+        checkOfTriangle.isEquilateralTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testApexNullExceptionOfIsEquilateralTriangle() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(point2D, new Point2D(0, 1), new Point2D(1, 2));
-        CheckOfTriangle.isEquilateralTriangle(triangle);
+        checkOfTriangle.isEquilateralTriangle(triangle);
     }
 
     @Test(expectedExceptions = NotTriangleException.class)
     public void testIsTriangleExceptionOfIsEquilateralTriangle() throws Exception {
-        Triangle triangle = new Triangle(new Point2D(0,0), new Point2D(0, 0),
-                new Point2D(0, 0));
-        CheckOfTriangle.isEquilateralTriangle(triangle);
+        Triangle triangle = new Triangle(new Point2D(1,0), new Point2D(2, 0),
+                new Point2D(3, 0));
+        checkOfTriangle.isEquilateralTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testNullExceptionOfIsIsoscelesTriangle() throws Exception {
         Triangle triangle = null;
-        CheckOfTriangle.isIsoscelesTriangle(triangle);
+        checkOfTriangle.isIsoscelesTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testApexNullExceptionOfIsIsoscelesTriangle() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(point2D, new Point2D(0, 1), new Point2D(1, 2));
-        CheckOfTriangle.isIsoscelesTriangle(triangle);
+        checkOfTriangle.isIsoscelesTriangle(triangle);
     }
 
     @Test(expectedExceptions = NotTriangleException.class)
     public void testIsTriangleExceptionOfIsIsoscelesTriangle() throws Exception {
-        Triangle triangle = new Triangle(new Point2D(0,0), new Point2D(0, 0),
-                new Point2D(0, 0));
-        CheckOfTriangle.isIsoscelesTriangle(triangle);
+        Triangle triangle = new Triangle(new Point2D(1,0), new Point2D(2, 0),
+                new Point2D(3, 0));
+        checkOfTriangle.isIsoscelesTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testNullExceptionOfIsRightTriangle() throws Exception {
         Triangle triangle = null;
-        CheckOfTriangle.isRightTriangle(triangle);
+        checkOfTriangle.isRightTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testApexNullExceptionOfIsRightTriangle() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(point2D, new Point2D(0, 1), new Point2D(1, 2));
-        CheckOfTriangle.isRightTriangle(triangle);
+        checkOfTriangle.isRightTriangle(triangle);
     }
 
     @Test(expectedExceptions = NotTriangleException.class)
     public void testIsTriangleExceptionOfIsRightTriangle() throws Exception {
-        Triangle triangle = new Triangle(new Point2D(0,0), new Point2D(0, 0),
-                new Point2D(0, 0));
-        CheckOfTriangle.isRightTriangle(triangle);
+        Triangle triangle = new Triangle(new Point2D(1,0), new Point2D(2, 0),
+                new Point2D(3, 0));
+        checkOfTriangle.isRightTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testNullExceptionOfIsAcuteTriangle() throws Exception {
         Triangle triangle = null;
-        CheckOfTriangle.isAcuteTriangle(triangle);
+        checkOfTriangle.isAcuteTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testApexNullExceptionOfIsAcuteTriangle() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(point2D, new Point2D(0, 1), new Point2D(1, 2));
-        CheckOfTriangle.isAcuteTriangle(triangle);
+        checkOfTriangle.isAcuteTriangle(triangle);
     }
 
     @Test(expectedExceptions = NotTriangleException.class)
     public void testIsTriangleExceptionOfIsAcuteTriangle() throws Exception {
-        Triangle triangle = new Triangle(new Point2D(0,0), new Point2D(0, 0),
-                new Point2D(0, 0));
-        CheckOfTriangle.isAcuteTriangle(triangle);
+        Triangle triangle = new Triangle(new Point2D(1,0), new Point2D(2, 0),
+                new Point2D(3, 0));
+        checkOfTriangle.isAcuteTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testNullExceptionOfIsObtuseTriangle() throws Exception {
         Triangle triangle = null;
-        CheckOfTriangle.isObtuseTriangle(triangle);
+        checkOfTriangle.isObtuseTriangle(triangle);
     }
 
     @Test(expectedExceptions = TriangleNullException.class)
     public void testApexNullExceptionOfIsObtuseTriangle() throws Exception {
         Point2D point2D = null;
         Triangle triangle = new Triangle(point2D, new Point2D(0, 1), new Point2D(1, 2));
-        CheckOfTriangle.isObtuseTriangle(triangle);
+        checkOfTriangle.isObtuseTriangle(triangle);
     }
 
     @Test(expectedExceptions = NotTriangleException.class)
     public void testIsTriangleExceptionOfIsObtuseTriangle() throws Exception {
-        Triangle triangle = new Triangle(new Point2D(0,0), new Point2D(0, 0),
-                new Point2D(0, 0));
-        CheckOfTriangle.isObtuseTriangle(triangle);
+        Triangle triangle = new Triangle(new Point2D(1,0), new Point2D(2, 0),
+                new Point2D(3, 0));
+        checkOfTriangle.isObtuseTriangle(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
@@ -370,7 +371,7 @@ public class CheckOfTriangleTest {
         double ordinataB = Math.pow(1.26E308d, 2);
         Triangle triangle = new Triangle(new Point2D(abscissaA,ordinataA), new Point2D(abscissaB, ordinataB),
                 new Point2D(0, 1));
-        CheckOfTriangle.isObtuseTriangle(triangle);
+        checkOfTriangle.isObtuseTriangle(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
@@ -381,7 +382,7 @@ public class CheckOfTriangleTest {
         double ordinataB = Math.pow(1.26E308d, 2);
         Triangle triangle = new Triangle(new Point2D(abscissaA,ordinataA), new Point2D(abscissaB, ordinataB),
                 new Point2D(0, 1));
-        CheckOfTriangle.isAcuteTriangle(triangle);
+        checkOfTriangle.isAcuteTriangle(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
@@ -392,7 +393,7 @@ public class CheckOfTriangleTest {
         double ordinataB = Math.pow(1.26E308d, 2);
         Triangle triangle = new Triangle(new Point2D(abscissaA,ordinataA), new Point2D(abscissaB, ordinataB),
                 new Point2D(0, 1));
-        CheckOfTriangle.isEquilateralTriangle(triangle);
+        checkOfTriangle.isEquilateralTriangle(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
@@ -403,7 +404,7 @@ public class CheckOfTriangleTest {
         double ordinataB = Math.pow(1.26E308d, 2);
         Triangle triangle = new Triangle(new Point2D(abscissaA,ordinataA), new Point2D(abscissaB, ordinataB),
                 new Point2D(0, 1));
-        CheckOfTriangle.isIsoscelesTriangle(triangle);
+        checkOfTriangle.isIsoscelesTriangle(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
@@ -414,7 +415,7 @@ public class CheckOfTriangleTest {
         double ordinataB = Math.pow(1.26E308d, 2);
         Triangle triangle = new Triangle(new Point2D(abscissaA,ordinataA), new Point2D(abscissaB, ordinataB),
                 new Point2D(0, 1));
-        CheckOfTriangle.isRightTriangle(triangle);
+        checkOfTriangle.isRightTriangle(triangle);
     }
 
     @Test(expectedExceptions = DoubleOutOfBoundException.class)
@@ -427,6 +428,6 @@ public class CheckOfTriangleTest {
         double ordinataC = Math.pow(1.28E308d, 2);
         Triangle triangle = new Triangle(new Point2D(abscissaA,ordinataA), new Point2D(abscissaB, ordinataB),
                 new Point2D(abscissaC, ordinataC));
-        CheckOfTriangle.isTriangle(triangle);
+        checkOfTriangle.isTriangle(triangle);
     }
 }
