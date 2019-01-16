@@ -5,7 +5,7 @@ import by.epam.dmitriysedin.task01.model.entity.Triangle;
 import by.epam.dmitriysedin.task01.model.exception.CorrectDataMissingException;
 import by.epam.dmitriysedin.task01.util.creation.CreatorImpl;
 import by.epam.dmitriysedin.task01.util.parse.CoordinatesParser;
-import by.epam.dmitriysedin.task01.util.validation.FormatOfInputDataValidation;
+import by.epam.dmitriysedin.task01.util.validation.InputDataValidation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,28 +14,20 @@ import java.util.List;
 /**
  * Created by Dmitriy Sedin on 06.12.2018.
  */
-public class TriangleInitImpl implements Initialization {
+public class TriangleInitImpl implements TriangleInit {
 
-    Triangle triangle;
-    Point2D apexA;
-    Point2D apexB;
-    Point2D apexC;
-
-    public TriangleInitImpl(Triangle triangle, Point2D apexA, Point2D apexB, Point2D apexC) {
-        this.triangle = triangle;
-        this.apexA = apexA;
-        this.apexB = apexB;
-        this.apexC = apexC;
+    public void point2DInit(Point2D point, double abscissa, double ordinate) {
+        point.setAbscissa(abscissa);
+        point.setOrdinate(ordinate);
     }
 
-    public void init(){
-
+    public void triangleInit(Triangle triangle, Point2D apexA, Point2D apexB, Point2D apexC) {
         triangle.setApexA(apexA);
         triangle.setApexB(apexB);
         triangle.setApexC(apexC);
     }
 
-    public Triangle[] init(String[] paramOfTriangle)throws CorrectDataMissingException {
+    public Triangle[] triangleInit(String[] paramOfTriangle)throws CorrectDataMissingException {
 
         List<Triangle> triangles = new ArrayList<>();
 
@@ -57,20 +49,20 @@ public class TriangleInitImpl implements Initialization {
             Point2D apexC = creator.point2dCreate();
             Triangle triangle = creator.triangleCreate();
 
-            if(new FormatOfInputDataValidation().isRightFormat(line)) {
+            if(new InputDataValidation().isRightFormat(line)) {
 
                 String[] coordinatesOfPoints = new CoordinatesParser().parse(line);
 
-                new Point2DInitImpl(apexA, Double.parseDouble(coordinatesOfPoints[indexOfAbscissaA]),
-                        Double.parseDouble(coordinatesOfPoints[indexOfOrdinateA])).init();
+                point2DInit(apexA, Double.parseDouble(coordinatesOfPoints[indexOfAbscissaA]),
+                        Double.parseDouble(coordinatesOfPoints[indexOfOrdinateA]));
 
-                new Point2DInitImpl(apexB, Double.parseDouble(coordinatesOfPoints[indexOfAbscissaB]),
-                        Double.parseDouble(coordinatesOfPoints[indexOfOrdinateB])).init();
+                point2DInit(apexB, Double.parseDouble(coordinatesOfPoints[indexOfAbscissaB]),
+                        Double.parseDouble(coordinatesOfPoints[indexOfOrdinateB]));
 
-                new Point2DInitImpl(apexC, Double.parseDouble(coordinatesOfPoints[indexOfAbscissaC]),
-                        Double.parseDouble(coordinatesOfPoints[indexOfOrdinateC])).init();
+                point2DInit(apexC, Double.parseDouble(coordinatesOfPoints[indexOfAbscissaC]),
+                        Double.parseDouble(coordinatesOfPoints[indexOfOrdinateC]));
 
-                new TriangleInitImpl(triangle, apexA, apexB, apexC).init();
+                triangleInit(triangle, apexA, apexB, apexC);
 
                 triangles.add(triangle);
             }

@@ -5,7 +5,7 @@ import by.epam.dmitriysedin.task01.util.parse.CoordinatesParser;
 /**
  * Created by Dmitriy Sedin on 06.12.2018.
  */
-public class FormatOfInputDataValidation {
+public class InputDataValidation {
 
     public boolean isRightFormat(String line){
 

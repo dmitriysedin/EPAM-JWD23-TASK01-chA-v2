@@ -5,7 +5,7 @@ import by.epam.dmitriysedin.task01.model.entity.Triangle;
 import by.epam.dmitriysedin.task01.model.exception.DoubleOutOfBoundException;
 import by.epam.dmitriysedin.task01.model.exception.TriangleNullException;
 
-import by.epam.dmitriysedin.task01.util.validation.ResultValidation;
+import by.epam.dmitriysedin.task01.util.validation.OutputDataValidation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,7 +44,7 @@ public class CalculationOfSidesOfTriangle {
         double sideAB = Math.sqrt((Math.pow(abscissaA - abscissaB, 2)) +
                 (Math.pow(ordinateA - ordinateB, 2)));
 
-        if(!new ResultValidation().isDouble(sideAB)){
+        if(!new OutputDataValidation().isDouble(sideAB)){
             logger.trace("DoubleOutOfBoundException thrown in <calculateSideAB>");
             throw new DoubleOutOfBoundException("Some side of triangle is too large / too small");
         }
@@ -77,7 +77,7 @@ public class CalculationOfSidesOfTriangle {
         double sideAC = Math.sqrt((Math.pow(abscissaA - abscissaC, 2)) +
                 (Math.pow(ordinateA - ordinateC, 2)));
 
-        if(!new ResultValidation().isDouble(sideAC)){
+        if(!new OutputDataValidation().isDouble(sideAC)){
             logger.trace("DoubleOutOfBoundException thrown in <calculateSideAC>");
             throw new DoubleOutOfBoundException("Some side of triangle is too large / too small");
         }
@@ -110,7 +110,7 @@ public class CalculationOfSidesOfTriangle {
         double sideBC = Math.sqrt((Math.pow(abscissaB - abscissaC, 2)) +
                 (Math.pow(ordinateB - ordinateC, 2)));
 
-        if(!new ResultValidation().isDouble(sideBC)){
+        if(!new OutputDataValidation().isDouble(sideBC)){
             logger.trace("DoubleOutOfBoundException thrown in <calculateSideBC>");
             throw new DoubleOutOfBoundException("Some side of triangle is too large / too small");
         }
