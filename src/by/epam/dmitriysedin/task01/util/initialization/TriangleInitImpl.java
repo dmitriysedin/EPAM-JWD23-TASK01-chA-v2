@@ -3,8 +3,10 @@ package by.epam.dmitriysedin.task01.util.initialization;
 import by.epam.dmitriysedin.task01.model.entity.Point2D;
 import by.epam.dmitriysedin.task01.model.entity.Triangle;
 import by.epam.dmitriysedin.task01.model.exception.CorrectDataMissingException;
+import by.epam.dmitriysedin.task01.util.creation.Creator;
 import by.epam.dmitriysedin.task01.util.creation.CreatorImpl;
 import by.epam.dmitriysedin.task01.util.parse.CoordinatesParser;
+import by.epam.dmitriysedin.task01.util.parse.Parser;
 import by.epam.dmitriysedin.task01.util.validation.InputDataValidation;
 
 import java.util.ArrayList;
@@ -31,7 +33,9 @@ public class TriangleInitImpl implements TriangleInit {
 
         List<Triangle> triangles = new ArrayList<>();
 
-        CreatorImpl creator = new CreatorImpl();
+        Creator creator = new CreatorImpl();
+
+        Parser parser = new CoordinatesParser();
 
         int indexOfAbscissaA = 0;
         int indexOfOrdinateA = 1;
@@ -51,7 +55,7 @@ public class TriangleInitImpl implements TriangleInit {
 
             if(new InputDataValidation().isRightFormat(line)) {
 
-                String[] coordinatesOfPoints = new CoordinatesParser().parse(line);
+                String[] coordinatesOfPoints = parser.parse(line);
 
                 point2DInit(apexA, Double.parseDouble(coordinatesOfPoints[indexOfAbscissaA]),
                         Double.parseDouble(coordinatesOfPoints[indexOfOrdinateA]));
@@ -69,7 +73,7 @@ public class TriangleInitImpl implements TriangleInit {
         }
 
         if(triangles.size() == 0){
-            throw new CorrectDataMissingException("There is no correct data.");
+            throw new CorrectDataMissingException("There are no correct data.");
         }
 
         Triangle[] trianglesArr = new Triangle[triangles.size()];
